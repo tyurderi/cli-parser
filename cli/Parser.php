@@ -27,6 +27,11 @@ class Parser
                 $pos         += 1;
                 $char         = $char->next()->next();
 
+                if(!$char) {
+                    $this->args[] = true;
+                    continue;
+                }
+
                 if($char == ' ')
                 {
                     $pos++;
@@ -36,15 +41,22 @@ class Parser
             else if($char == '-' && $char->next() == '-')
             {
                 $buffer = '';
-                while($char != '=' && $char != ' ')
+                while($char && $char != '=' && $char != ' ')
                 {
                     $buffer .= $char;
                     $char    = $char->next();
                 }
 
                 $this->args[] = $buffer;
-                $pos         += strlen($buffer) + 1; // plus "="
-                $char         = $char->next();
+                $pos         += strlen($buffer);
+
+                if(!$char) {
+                    $this->args[] = true;
+                    continue;
+                }
+
+                $char = $char->next();
+                $pos += 1;
 
                 if(!$char) {
                     $this->args[] = '';
