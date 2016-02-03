@@ -77,7 +77,7 @@ class CharChain implements \ArrayAccess, \Iterator
     {
         for($i = 0; $i < $this->length; $i++)
         {
-            $char = new Char($this->string()[$i], $i);
+            $char = new Char($this->string()[$i], $i, $this);
 
             if($prev = $this->offsetGet($i - 1))
             {
@@ -89,6 +89,23 @@ class CharChain implements \ArrayAccess, \Iterator
         }
 
         $this->length = count($this->chars);
+    }
+
+    public function rebuild()
+    {
+        $char        = $this->offsetGet(0);
+        $this->chars = array();
+        $buffer      = '';
+
+        while($char)
+        {
+            $buffer .= $char;
+            $char    = $char->next();
+        }
+
+        $this->string = $buffer;
+        $this->length = strlen($buffer);
+        $this->parse();
     }
 
     /** ArrayAccess */
