@@ -21,16 +21,25 @@ class PostParser
 
             if($char == '-' && $char->next() != '-')
             {
-                $equalsPos = strpos($chars, '=');
-                $key       = (string) $char->next();
-                $value = substr($chars, $equalsPos === false ? 2 : 3);
+                $key = (string) $char->next();
 
-                if(empty($value) && isset($input[$i + 1]) && strpos($input[$i + 1], '-') === false)
+                if($chars->length() == 2 && (!isset($input[$i + 1]) || $this->isArgument($input, $i + 1)))
                 {
-                    $value = $input[++$i];
+                    $this->addArgument($key, true);
                 }
+                else
+                {
+                    $key       = (string) $char->next();
+                    $equalsPos = strpos($chars, '=');
+                    $value     = substr($chars, $equalsPos === false ? 2 : 3);
 
-                $this->addArgument($key, $value);
+                    if(empty($value) && $input[$i + 1] && !$this->isArgument($input, $i + 1))
+                    {
+                        $value = $input[++$i];
+                    }
+
+                    $this->addArgument($key, $value);
+                }
             }
             else if($char->is('--'))
             {
@@ -59,6 +68,18 @@ class PostParser
         }
 
         return $this->arguments;
+    }
+
+    protected function isArgument($input, $index)
+    {
+        if(!isset($input[$index]))
+        {
+            return false;
+        }
+
+        $argument = $input[$index];
+
+        return strpos($argument, '-') !== false;
     }
 
     protected function addArgument($key, $value)

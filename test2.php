@@ -14,7 +14,10 @@ $input = array(
     '--age=17',
     '--company=Rhinos Media',
     '--other=',
-    '--flag'
+    '--flag',
+    'subcommand',
+    '-e',
+    'more subcommand'
 );
 
 $expected = array(
