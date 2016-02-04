@@ -42,9 +42,26 @@ class PreParser
 
         $pos += strlen($buffer);
 
-        $buffer = str_replace('\\ ', ' ', $buffer);
+        $buffer = $this->removeChar($buffer, '\\');
+        $buffer = $this->removeChar($buffer, '"');
 
         return $buffer;
+    }
+
+    protected function removeChar($subject, $needle)
+    {
+        $chars = new CharChain($subject);
+
+        while($pos = strpos($chars, $needle))
+        {
+            $char = $chars[$pos];
+            if($char->prev() && $char->prev() != '\\' || !$char->prev())
+            {
+                $char->remove();
+            }
+        }
+
+        return (string) $chars;
     }
 
 }
