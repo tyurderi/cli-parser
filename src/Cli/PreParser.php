@@ -1,6 +1,6 @@
 <?php
 
-namespace Cli;
+namespace CliParser\Cli;
 
 use String\Char;
 use String\CharChain;
