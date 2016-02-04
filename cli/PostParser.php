@@ -94,7 +94,21 @@ class PostParser
             $value = '';
         }
 
-        $this->arguments[$key] = $value;
+        if(isset($this->arguments[$key]))
+        {
+            if(!is_array($this->arguments[$key]))
+            {
+                $this->arguments[$key] = array(
+                    $this->arguments[$key]
+                );
+            }
+
+            $this->arguments[$key][] = $value;
+        }
+        else
+        {
+            $this->arguments[$key] = $value;
+        }
     }
     
 }

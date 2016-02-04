@@ -5,32 +5,6 @@ require_once __DIR__ . '/string/CharChain.php';
 
 require_once __DIR__ . '/cli/PostParser.php';
 
-$input = array(
-    '-fTommy',
-    '-l',
-    'Meier',
-    '-k=5',
-    '--fn=Tommy Meier',
-    '--age=17',
-    '--company=Rhinos Media',
-    '--other=',
-    '--flag',
-    'subcommand',
-    '-e',
-    'more subcommand'
-);
+$result = (new Cli\PostParser)->parse(array_slice($argv, 1));
 
-$expected = array(
-    'f'         => 'Tommy',
-    'l'         => 'Meier',
-    'k'         => 5,
-    'fn'        => 'Tommy Meier',
-    'age'       => 17,
-    'company'   => 'Rhinos Media',
-    'other'     => '',
-    'flag'      => true
-);
-
-$result = (new Cli\PostParser)->parse($input);
-
-var_dump($result, $expected == $result);
+var_dump($result);
