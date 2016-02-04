@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "tyurderi/string": "dev-master"
+        "tyurderi/string": "v1.0"
     },
     "autoload": {
         "psr-4": {
