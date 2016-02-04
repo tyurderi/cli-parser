@@ -2,7 +2,8 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$parser = new CliParser\Cli\PostParser();
-$result = $parser->parse(array_slice($argv, 1));
+$parser = new CliParser\Cli\FullParser();
+$args   = $parser->parse('say_hello --message="Hello World"');
 
-var_dump($result);
+echo $args->message, PHP_EOL; // echoes Hello World
+echo $args->__global__, PHP_EOL; // echoes say_hello
