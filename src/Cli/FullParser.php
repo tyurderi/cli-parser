@@ -26,7 +26,7 @@ class FullParser
         $result = $this->preParser->parse($input);
         $result = $this->postParser->parse($result);
 
-        return $result;
+        return new Arguments($result);
     }
 
 }
