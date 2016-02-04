@@ -74,7 +74,7 @@ class Char
 
         $this->chain->rebuild();
 
-        return $this->chain->offsetGet($this->position() + 1);
+        return $this;
     }
 
     public function remove()
@@ -88,6 +88,9 @@ class Char
         {
             $this->next()->setPrev($this->prev());
         }
+
+        $this->setPrev(null);
+        $this->setNext(null);
 
         $this->chain->rebuild();
     }

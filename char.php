@@ -8,5 +8,6 @@ use String\CharChain;
 
 $chars = new CharChain('Hello');
 
+
 echo $chars->length(), PHP_EOL;
 echo $chars, PHP_EOL;

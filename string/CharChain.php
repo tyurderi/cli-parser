@@ -91,9 +91,29 @@ class CharChain implements \ArrayAccess, \Iterator
         $this->length = count($this->chars);
     }
 
+    protected function getFirst()
+    {
+        $char = null;
+        while(true)
+        {
+            $char = array_shift($this->chars);
+            if($char->prev() == null && $char->next() == null)
+            {
+                $this->offsetUnset(0);
+                continue;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        return $char;
+    }
+
     public function rebuild()
     {
-        $char        = $this->offsetGet(0);
+        $char        = $this->getFirst();
         $this->chars = array();
         $buffer      = '';
 
