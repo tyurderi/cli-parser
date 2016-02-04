@@ -39,14 +39,14 @@ class Char
     public function before($charValue)
     {
         $char = new Char($charValue, -1, $this->chain);
-        $char->next($this);
+        $char->setNext($this);
 
         if($this->prev())
         {
-            $this->prev()->next($char);
+            $this->prev()->setNext($char);
         }
 
-        $this->prev($char);
+        $this->setPrev($char);
         $this->chain->rebuild();
 
         return $char;
@@ -55,14 +55,14 @@ class Char
     public function after($charValue)
     {
         $char = new Char($charValue, -1, $this->chain);
-        $char->prev($this);
+        $char->setPrev($this);
 
         if($this->next())
         {
-            $this->next()->prev($char);
+            $this->next()->setPrev($char);
         }
 
-        $this->next($char);
+        $this->setNext($char);
         $this->chain->rebuild();
 
         return $char;
@@ -74,42 +74,42 @@ class Char
 
         $this->chain->rebuild();
 
-        return $this;
+        return $this->chain->offsetGet($this->position() + 1);
     }
 
     public function remove()
     {
         if($this->prev())
         {
-            $this->prev()->next($this->next());
+            $this->prev()->setNext($this->next());
         }
 
         if($this->next())
         {
-            $this->next()->prev($this->prev());
+            $this->next()->setPrev($this->prev());
         }
 
         $this->chain->rebuild();
     }
 
-    public function prev(Char $prev = null)
+    public function prev()
     {
-        if(isset($prev))
-        {
-            $this->prev = $prev;
-        }
-
         return $this->prev;
     }
 
-    public function next(Char $next = null)
+    public function next()
     {
-        if(isset($next))
-        {
-            $this->next = $next;
-        }
-
         return $this->next;
+    }
+
+    public function setPrev(Char $prev = null)
+    {
+        $this->prev = $prev;
+    }
+
+    public function setNext(Char $next = null)
+    {
+        $this->next = $next;
     }
 
     public function position($position = null)

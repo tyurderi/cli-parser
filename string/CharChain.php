@@ -81,8 +81,8 @@ class CharChain implements \ArrayAccess, \Iterator
 
             if($prev = $this->offsetGet($i - 1))
             {
-                $char->prev($prev);
-                $prev->next($char);
+                $char->setPrev($prev);
+                $prev->setNext($char);
             }
 
             $this->chars[] = $char;
