@@ -52,6 +52,10 @@ class PostParser
                     $this->addArgument($key, $value);
                 }
             }
+            else
+            {
+                $this->addArgument('__global__', $argument);
+            }
         }
 
         return $this->arguments;
