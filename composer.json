@@ -1,0 +1,19 @@
+{
+    "name": "tyurderi/cli-parser",
+    "description": "A lightweight command line arguments parser.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "tyurderi",
+            "email": "tyurderi@yahoo.de"
+        }
+    ],
+    "require": {
+        "tyurderi/string": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "CliParser\\": "src/"
+        }
+    }
+}
