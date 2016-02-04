@@ -42,13 +42,13 @@ class PreParser
 
         $pos += strlen($buffer);
 
-        $buffer = $this->removeChar($buffer, '\\');
-        $buffer = $this->removeChar($buffer, '"');
+        $buffer = $this->removeChars($buffer, '\\');
+        $buffer = $this->removeChars($buffer, '"');
 
         return $buffer;
     }
 
-    protected function removeChar($subject, $needle)
+    protected function removeChars($subject, $needle)
     {
         $chars = new CharChain($subject);
 
