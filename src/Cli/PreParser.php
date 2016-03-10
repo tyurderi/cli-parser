@@ -2,15 +2,14 @@
 
 namespace CliParser\Cli;
 
-use String\Char;
-use String\CharChain;
+use WCKZ\StringUtil;
 
 class PreParser
 {
 
     public function parse($input)
     {
-        $chars = new CharChain($input);
+        $chars = new StringUtil\MutateableString($input);
         $args  = array();
 
         for($pos = 0; $pos < $chars->length() && $char = $chars[$pos]; $pos++)
@@ -24,7 +23,7 @@ class PreParser
         return $args;
     }
 
-    protected function readBuffer(Char $char, &$pos)
+    protected function readBuffer(StringUtil\StaticChar $char, &$pos)
     {
         $buffer = '';
         $quotes = false;
@@ -50,7 +49,7 @@ class PreParser
 
     protected function removeChars($subject, $needle)
     {
-        $chars = new CharChain($subject);
+        $chars = new StringUtil\MutateableString($subject);
 
         while($pos = strpos($chars, $needle))
         {

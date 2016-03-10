@@ -2,8 +2,8 @@
 
 namespace CliParser\Cli;
 
-use String\Char;
-use String\CharChain;
+use WCKZ\StringUtil\StaticString;
+
 
 class PostParser
 {
@@ -16,7 +16,7 @@ class PostParser
 
         for($i = 0; $i < $length && $argument = $input[$i]; $i++)
         {
-            $chars = new CharChain($argument);
+            $chars = new StaticString($argument);
             $char  = $chars[0];
 
             if($char == '-' && $char->next() != '-')

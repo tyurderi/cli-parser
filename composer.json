@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "tyurderi/string": "v1.0"
+        "tyurderi/string": "v1.5"
     },
     "autoload": {
         "psr-4": {
