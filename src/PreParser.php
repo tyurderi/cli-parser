@@ -1,6 +1,6 @@
 <?php
 
-namespace CliParser\Cli;
+namespace CLIParser;
 
 use WCKZ\StringUtil;
 

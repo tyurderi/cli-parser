@@ -1,9 +1,8 @@
 <?php
 
-namespace CliParser\Cli;
+namespace CLIParser;
 
 use WCKZ\StringUtil\StaticString;
-
 
 class PostParser
 {
@@ -12,7 +11,7 @@ class PostParser
 
     public function parse($input)
     {
-        $length    = count($input);
+        $length = count($input);
 
         for($i = 0; $i < $length && $argument = $input[$i]; $i++)
         {
@@ -63,7 +62,7 @@ class PostParser
             }
             else
             {
-                $this->addArgument('__global__', $argument);
+                $this->addArgument('__global__', $argument, true);
             }
         }
 
@@ -82,7 +81,7 @@ class PostParser
         return strpos($argument, '-') !== false;
     }
 
-    protected function addArgument($key, $value)
+    protected function addArgument($key, $value, $asArray = false)
     {
         if(is_numeric($value))
         {
@@ -94,7 +93,11 @@ class PostParser
             $value = '';
         }
 
-        if(isset($this->arguments[$key]))
+        if($asArray || (isset($this->arguments[$key]) && is_array($this->arguments[$key])))
+        {
+            $this->arguments[$key][] = $value;
+        }
+        else if(isset($this->arguments[$key]))
         {
             if(!is_array($this->arguments[$key]))
             {
